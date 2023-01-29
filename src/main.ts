@@ -8,17 +8,17 @@ async function run(): Promise<void> {
   try {
     const client = new Bot(loadBotConfig())
 
-    // Since username, password fields are missing on definition
-    // Just set with Bot.setConfig.
-    ;['username', 'password'].forEach(key => {
-      const value = core.getInput(key)
-      client.setConfig(key, value)
-    })
-
     core.debug('Logging in...')
-    client.logIn(async err => {
+    const username = core.getInput('username')
+    const password = core.getInput('password')
+
+    if (username === '' || password === '') {
+      throw new Error('Username or password is not provided.')
+    }
+
+    client.logIn(username, password, async err => {
       if (err instanceof Error) {
-        throw err
+        throw new Error(err.message)
       }
 
       core.debug('Logged in.')
@@ -36,7 +36,7 @@ async function run(): Promise<void> {
         `Editing wiki page by action with ${commit}`,
         (err, args) => {
           if (err instanceof Error) {
-            throw err
+            throw new Error(err.message)
           }
 
           if (args === undefined) {

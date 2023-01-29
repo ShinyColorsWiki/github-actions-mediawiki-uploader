@@ -103,14 +103,15 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const client = new nodemw_1.default((0, config_1.default)());
-            ['username', 'password'].forEach(key => {
-                const value = core.getInput(key);
-                client.setConfig(key, value);
-            });
             core.debug('Logging in...');
-            client.logIn((err) => __awaiter(this, void 0, void 0, function* () {
+            const username = core.getInput('username');
+            const password = core.getInput('password');
+            if (username === '' || password === '') {
+                throw new Error('Username or password is not provided.');
+            }
+            client.logIn(username, password, (err) => __awaiter(this, void 0, void 0, function* () {
                 if (err instanceof Error) {
-                    throw err;
+                    throw new Error(err.message);
                 }
                 core.debug('Logged in.');
                 const title = core.getInput('pagename');
@@ -121,7 +122,7 @@ function run() {
                 core.debug('Editing..');
                 client.edit(title, content, `Editing wiki page by action with ${commit}`, (err, args) => {
                     if (err instanceof Error) {
-                        throw err;
+                        throw new Error(err.message);
                     }
                     if (args === undefined) {
                         throw new Error('Unknown error occured.');
