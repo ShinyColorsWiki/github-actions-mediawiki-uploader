@@ -1,22 +1,23 @@
 import * as core from '@actions/core'
-import {BotOptions} from 'nodemw/lib/types'
+import { MwnOptions } from 'mwn'
 
-export default function loadBotConfig(): BotOptions {
-  const url: string = core.getInput('mediawiki_api_url')
+export default function loadBotConfig(): MwnOptions {
+  const apiUrl: string = core.getInput('mediawiki_api_url')
   const useragent = core.getInput('useragent')
-  let {protocol, port, host, pathname} = new URL(url)
 
-  if (pathname.includes('/api.php')) {
-    const path = pathname.split('/api.php')[0]
-    pathname = path === '' ? '/' : path
-  }
+  const username = core.getInput('username')
+  const password = core.getInput('password')
 
   return {
-    protocol,
-    server: host,
-    port: parseInt(port, 10),
-    path: pathname,
-    userAgent: useragent === '' ? undefined : useragent,
-    debug: core.isDebug()
+    apiUrl,
+    userAgent: emptyToUndefined(useragent),
+    silent: !core.isDebug(),
+
+    username: emptyToUndefined(username),
+    password: emptyToUndefined(password),
   }
+}
+
+function emptyToUndefined(str: string) {
+  return str === "" ? undefined : str
 }
