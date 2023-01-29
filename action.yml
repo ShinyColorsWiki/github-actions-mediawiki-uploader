@@ -1,0 +1,25 @@
+name: 'Github-Actions-Mediawiki-Uploader'
+description: 'Upload text file to mediawiki instance using MW API'
+author: 'ShinyColorsWiki'
+inputs:
+  mediawiki_api_url:
+    required: true
+    description: 'A mediawiki instance url to upload text'
+  username:
+    required: true
+    description: 'A mediawiki instance username'
+  password:
+    required: true
+    description: 'A mediawiki instance password'
+  filepath:
+    required: true
+    description: 'A file path of upload text'
+  pagename:
+    required: true
+    description: 'A page name to edit on mediawiki'
+  useragent:
+    required: false
+    description: 'An user-agent to communicate mediawiki'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
