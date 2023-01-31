@@ -41,12 +41,12 @@ function loadBotConfig() {
         userAgent: emptyToUndefined(useragent),
         silent: !core.isDebug(),
         username: emptyToUndefined(username),
-        password: emptyToUndefined(password),
+        password: emptyToUndefined(password)
     };
 }
 exports["default"] = loadBotConfig;
 function emptyToUndefined(str) {
-    return str === "" ? undefined : str;
+    return str === '' ? undefined : str;
 }
 
 
@@ -111,9 +111,11 @@ function run() {
             if (title === '' || content === '') {
                 throw new Error('title or content is not provided.');
             }
-            const commit = github.context.sha;
-            const summary = `Editing wiki page by action with ${commit}`;
-            core.debug("Save page...");
+            const summary = stringFormatUnicorn(core.getInput('summary'), {
+                title,
+                commit: github.context.sha
+            });
+            core.debug('Save page...');
             const resp = yield bot.save(title, content, summary);
             core.info(`Updated ${resp.title} as ${resp.result}. (${resp.newtimestamp})`);
         }
@@ -122,6 +124,16 @@ function run() {
                 core.setFailed(error.message);
         }
     });
+}
+function stringFormatUnicorn(str, kv) {
+    let formatted = str.toString();
+    if (kv.length === 0) {
+        return formatted;
+    }
+    for (let [key, value] of Object.entries(kv)) {
+        formatted = formatted.replace(new RegExp('\\{' + key + '\\}', 'gi'), value.toString());
+    }
+    return formatted;
 }
 run();
 
