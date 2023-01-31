@@ -20,6 +20,10 @@ inputs:
   useragent:
     required: false
     description: 'An user-agent to communicate mediawiki'
+  summary:
+    required: false
+    description: 'A summary to publish on mediawiki. Formatting supported.'
+    default: 'Editing wiki page by action with {commit}'
 runs:
   using: 'node16'
   main: 'dist/index.js'

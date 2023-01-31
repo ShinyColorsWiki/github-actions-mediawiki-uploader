@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { MwnOptions } from 'mwn'
+import {MwnOptions} from 'mwn'
 
 export default function loadBotConfig(): MwnOptions {
   const apiUrl: string = core.getInput('mediawiki_api_url')
@@ -14,10 +14,10 @@ export default function loadBotConfig(): MwnOptions {
     silent: !core.isDebug(),
 
     username: emptyToUndefined(username),
-    password: emptyToUndefined(password),
+    password: emptyToUndefined(password)
   }
 }
 
 function emptyToUndefined(str: string) {
-  return str === "" ? undefined : str
+  return str === '' ? undefined : str
 }
