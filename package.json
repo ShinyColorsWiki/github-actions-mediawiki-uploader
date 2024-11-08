@@ -1,6 +1,6 @@
 {
   "name": "github-actions-mediawiki-uploader",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Upload text file to mediawiki instance using MW API",
   "main": "lib/main.js",
   "scripts": {
@@ -26,19 +26,20 @@
   },
   "homepage": "https://github.com/ShinyColorsWiki/github-actions-mediawiki-uploader#readme",
   "dependencies": {
-    "@actions/core": "^1.10.0",
-    "@actions/github": "^5.1.1",
-    "mwn": "^1.11.5"
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "mwn": "^2.0.3"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18",
-    "@typescript-eslint/parser": "^5.49.0",
-    "@vercel/ncc": "^0.36.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+    "@types/node": "^22.9.0",
+    "@typescript-eslint/parser": "^8.13.0",
+    "@vercel/ncc": "^0.38.2",
     "eslint": "^8.33.0",
-    "eslint-plugin-github": "^4.6.0",
-    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-github": "^5.0.2",
+    "eslint-plugin-jest": "^28.9.0",
     "js-yaml": "^4.1.0",
-    "prettier": "2.8.3",
-    "typescript": "^4.9.4"
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
   }
 }

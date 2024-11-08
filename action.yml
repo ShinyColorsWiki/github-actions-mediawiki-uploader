@@ -25,5 +25,5 @@ inputs:
     description: 'A summary to publish on mediawiki. Formatting supported.'
     default: 'Editing wiki page by action with {commit}'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'

@@ -1,13 +1,14 @@
+import {promises as fs} from 'fs'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import {mwn} from 'mwn'
+import {Mwn} from 'mwn'
 import loadBotConfig from './config'
-import {promises as fs} from 'fs'
+import {stringFormatUnicorn} from './utils'
 
 async function run(): Promise<void> {
   try {
     core.debug('Logging in...')
-    const bot = await mwn.init(loadBotConfig())
+    const bot = await Mwn.init(loadBotConfig())
     core.debug('Logged in.')
 
     const title = core.getInput('pagename')
@@ -31,26 +32,6 @@ async function run(): Promise<void> {
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
-}
-
-function stringFormatUnicorn(
-  str: string | number | object,
-  kv: {[key: string | number]: string | number}
-): string {
-  let formatted = str.toString()
-
-  if (kv.length === 0) {
-    return formatted
-  }
-
-  for (let [key, value] of Object.entries(kv)) {
-    formatted = formatted.replace(
-      new RegExp('\\{' + key + '\\}', 'gi'),
-      value.toString()
-    )
-  }
-
-  return formatted
 }
 
 run()
