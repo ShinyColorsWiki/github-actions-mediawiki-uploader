@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "plugin:github/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+
+  "rules": {
+    "i18n-text/no-en": "off"
+  }
+}

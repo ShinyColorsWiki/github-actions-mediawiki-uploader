@@ -1,18 +1,18 @@
 import {promises as fs} from 'fs'
-import * as core from '@actions/core'
-import * as github from '@actions/github'
+import {debug, getInput, info, setFailed} from '@actions/core'
+import {context} from '@actions/github'
 import {Mwn} from 'mwn'
 import loadBotConfig from './config'
 import {stringFormatUnicorn} from './utils'
 
 async function run(): Promise<void> {
   try {
-    core.debug('Logging in...')
+    debug('Logging in...')
     const bot = await Mwn.init(loadBotConfig())
-    core.debug('Logged in.')
+    debug('Logged in.')
 
-    const title = core.getInput('pagename')
-    const content = await fs.readFile(core.getInput('filepath'), {
+    const title = getInput('pagename')
+    const content = await fs.readFile(getInput('filepath'), {
       encoding: 'utf-8'
     })
 
@@ -20,17 +20,17 @@ async function run(): Promise<void> {
       throw new Error('title or content is not provided.')
     }
 
-    const summary = stringFormatUnicorn(core.getInput('summary'), {
+    const summary = stringFormatUnicorn(getInput('summary'), {
       title,
-      commit: github.context.sha
+      commit: context.sha
     })
 
-    core.debug('Save page...')
+    debug('Save page...')
     const resp = await bot.save(title, content, summary)
 
-    core.info(`Updated ${resp.title} as ${resp.result}. (${resp.newtimestamp})`)
+    info(`Updated ${resp.title} as ${resp.result}. (${resp.newtimestamp})`)
   } catch (error) {
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) setFailed(error.message)
   }
 }
 

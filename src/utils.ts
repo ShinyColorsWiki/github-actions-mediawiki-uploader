@@ -8,9 +8,9 @@ function stringFormatUnicorn(
     return formatted
   }
 
-  for (let [key, value] of Object.entries(kv)) {
+  for (const [key, value] of Object.entries(kv)) {
     formatted = formatted.replace(
-      new RegExp('\\{' + key + '\\}', 'gi'),
+      new RegExp(`\\{${key}\\}`, 'gi'),
       value.toString()
     )
   }

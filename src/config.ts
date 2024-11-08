@@ -1,17 +1,17 @@
-import * as core from '@actions/core'
+import {getInput, isDebug} from '@actions/core'
 import {MwnOptions} from 'mwn'
 
 export default function loadBotConfig(): MwnOptions {
-  const apiUrl: string = core.getInput('mediawiki_api_url')
-  const useragent = core.getInput('useragent')
+  const apiUrl: string = getInput('mediawiki_api_url')
+  const useragent = getInput('useragent')
 
-  const username = core.getInput('username')
-  const password = core.getInput('password')
+  const username = getInput('username')
+  const password = getInput('password')
 
   return {
     apiUrl,
     userAgent: emptyToUndefined(useragent),
-    silent: !core.isDebug(),
+    silent: !isDebug(),
 
     username: emptyToUndefined(username),
     password: emptyToUndefined(password)

@@ -5,11 +5,11 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write '**/*.ts'",
+    "format": "prettier --write src/**/*.ts",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map --license licenses.txt",
-    "all": "npm run build && npm run format && npm run lint && npm run package"
+    "all": "npm run format && npm run lint && npm run build && npm run package"
   },
   "repository": {
     "type": "git",
