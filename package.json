@@ -1,6 +1,6 @@
 {
   "name": "github-actions-mediawiki-uploader",
-  "version": "0.2.0",
+  "version": "2.0.0",
   "description": "Upload text file to mediawiki instance using MW API",
   "main": "lib/main.js",
   "scripts": {
